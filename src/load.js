@@ -15,7 +15,8 @@ var Load = {
 
         }, this);
 
-        console.log('load state');
+        // load assets
+        game.load.spritesheet('shipsheet', '/img/shipsheet1.png', 32, 32, 6);
 
     },
 

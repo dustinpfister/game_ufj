@@ -1,12 +1,21 @@
 
-var Game = {
+var Game = (function () {
 
-    preload : function () {
+    var ship;
 
-        console.log('ready to rock!');
+    return {
 
-    },
+        preload : function () {
 
-    create : function () {}
+            console.log('ready to rock!');
 
-};
+            ship = game.add.sprite(0, 0, 'shipsheet');
+
+        },
+
+        create : function () {}
+
+    };
+
+}
+    ());
