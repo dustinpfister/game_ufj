@@ -2,11 +2,20 @@
 var Game = (function () {
 
     var ship, // ship sprite
+    guys = {
+
+        max : 5,
+        spawnRate : 3000,
+        lastSpawn : new Date(),
+        current : []
+
+    },
     k; // keyboard
 
     return {
 
-        preload : function () {
+        // create the scene
+        create : function () {
 
             // setup the ship sprite
             ship = game.add.sprite(game.world.centerX - 16, game.world.centerY - 16, 'shipsheet');
@@ -50,11 +59,26 @@ var Game = (function () {
                 ship.frame = 0;
 
             }
+
         },
 
-        create : function () {},
+        update : function () {
 
-        update : function () {}
+            var now = new Date();
+
+            if (now - guys.lastSpawn >= guys.spawnRate) {
+
+                if (guys.current.length < guys.max) {
+
+                    console.log('guy spawn!');
+
+                }
+
+                guys.lastSpawn = now;
+
+            }
+
+        }
 
     };
 
