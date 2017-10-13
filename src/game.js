@@ -18,10 +18,10 @@ var Game = (function () {
             len; // length
 
             // spawn new guys maybe if it is time
-            if (now - guys.lastSpawn >= guys.spawnRate) {
+            if (now - this.lastSpawn >= this.spawnRate) {
 
                 // have we not reached the max?
-                if (guys.current.length < guys.max) {
+                if (this.current.length < this.max) {
 
                     // then spawn a guy
                     console.log('guy spawn!');
@@ -35,19 +35,20 @@ var Game = (function () {
 
                     };
 
-                    guys.current.push(ng);
+                    this.current.push(ng);
 
                 }
 
-                guys.lastSpawn = now;
+                this.lastSpawn = now;
 
             }
 
+            // update current guys
             i = 0;
-            len = guys.current.length;
+            len = this.current.length;
             while (i < len) {
 
-                var g = guys.current[i];
+                var g = this.current[i];
 
                 g.x += g.data.dx;
 
