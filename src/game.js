@@ -2,6 +2,24 @@
 var Game = (function () {
 
     var ship, // ship sprite
+    shoot = function () {
+
+        var now = new Date(),
+        d = ship.data;
+
+        if (now - d.lastShot >= d.rate) {
+
+            if (d.shots.length < d.max) {
+
+                console.log(ship.data.shots);
+
+            }
+
+            d.lastShot = now;
+
+        }
+
+    },
     guys = {
 
         max : 5, // max guys at any time
@@ -82,6 +100,16 @@ var Game = (function () {
             // setup the ship sprite
             ship = game.add.sprite(game.world.centerX - 16, game.world.centerY - 16, 'shipsheet');
 
+            // ship data
+            ship.data = {
+
+                shots : [],
+                lastShot : new Date(),
+                rate : 1000,
+                max : 1
+
+            };
+
             // set the keyboard hander to k
             k = game.input.keyboard;
 
@@ -113,6 +141,13 @@ var Game = (function () {
             k.addKey(83).onHoldCallback = function (key) {
 
                 ship.y += 1;
+
+            };
+
+            // L
+            k.addKey('L'.charCodeAt(0)).onHoldCallback = function (key) {
+
+                shoot();
 
             };
 
