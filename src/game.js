@@ -4,10 +4,71 @@ var Game = (function () {
     var ship, // ship sprite
     guys = {
 
-        max : 5,
-        spawnRate : 3000,
-        lastSpawn : new Date(),
-        current : []
+        max : 5, // max guys at any time
+        spawnRate : 3000, // amount of time between spawns
+        lastSpawn : new Date(), // the last time there was a spawn
+        current : [], // current guys in the game world
+
+        // main update script for guys object
+        update : function () {
+
+            var now = new Date(), // The time now
+            ng, // new guy
+            i, // index
+            len; // length
+
+            // spawn new guys maybe if it is time
+            if (now - guys.lastSpawn >= guys.spawnRate) {
+
+                // have we not reached the max?
+                if (guys.current.length < guys.max) {
+
+                    // then spawn a guy
+                    console.log('guy spawn!');
+
+                    ng = game.add.sprite(0, game.world.height - 32, 'shipsheet');
+
+                    ng.data = {
+
+                        forward : true,
+                        dx : 1
+
+                    };
+
+                    guys.current.push(ng);
+
+                }
+
+                guys.lastSpawn = now;
+
+            }
+
+            i = 0;
+            len = guys.current.length;
+            while (i < len) {
+
+                var g = guys.current[i];
+
+                g.x += g.data.dx;
+
+                if (g.x >= game.world.width - 32) {
+
+                    g.x = game.world.width - 32;
+                    g.data.dx = -1;
+
+                }
+
+                if (g.x <= 0) {
+
+                    g.x = 0;
+                    g.data.dx = 1;
+
+                }
+
+                i += 1;
+            }
+
+        }
 
     },
     k; // keyboard
@@ -64,19 +125,8 @@ var Game = (function () {
 
         update : function () {
 
-            var now = new Date();
-
-            if (now - guys.lastSpawn >= guys.spawnRate) {
-
-                if (guys.current.length < guys.max) {
-
-                    console.log('guy spawn!');
-
-                }
-
-                guys.lastSpawn = now;
-
-            }
+            // can main update script for guys object
+            guys.update();
 
         }
 
